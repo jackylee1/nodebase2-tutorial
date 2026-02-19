@@ -116,3 +116,17 @@ npx inngest-cli@latest dev --no-discovery -u http://localhost:3000/api/inngest
 -   **Next.js**: ✅ `http://localhost:3000` (HTTP 200)
 -   **Inngest**: ✅ `http://localhost:8288`
 -   **Database**: ✅ Connected to Neon PostgreSQL
+
+## Phase 5: Database Migration / 数据库迁移
+**Goal**: Push Prisma schema to Neon PostgreSQL to create actual tables.
+**目标**: 将 Prisma 架构推送到 Neon PostgreSQL 以创建实际的表。
+
+### Executed Commands / 执行的命令
+```bash
+npx prisma db push
+# Output: 🚀 Your database is now in sync with your Prisma schema. Done in 20.24s
+```
+
+### Result / 结果
+-   Tables created: `user`, `session`, `account`, `verification`, `Workflow`
+-   Database: `neondb` at Neon.tech

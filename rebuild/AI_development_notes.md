@@ -109,6 +109,17 @@ npm install inngest
 npx inngest-cli@latest dev --no-discovery -u http://localhost:3000/api/inngest
 ```
 
+### Database Migration (Post Phase 4) ✅
+**What happened**: Applied the full schema to Neon PostgreSQL.
+
+**Commands executed**:
+```bash
+npx prisma db push
+# 🚀 Your database is now in sync with your Prisma schema. Done in 20.24s
+```
+
+**Tables created**: `user`, `session`, `account`, `verification`, `Workflow` in `neondb`.
+
 ---
 
 ## 3. Architecture Map / 架构图

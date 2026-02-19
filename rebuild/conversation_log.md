@@ -140,5 +140,42 @@
 -   Updated this `conversation_log.md`.
 -   **Next**: Database migration (`npx prisma db push`) to apply schema to Neon.
 
+**AI**:
+-   Ran `npx prisma db push`.
+-   **Result**: `🚀 Your database is now in sync with your Prisma schema. Done in 20.24s`
+-   Tables created in Neon: `user`, `session`, `account`, `verification`, `Workflow`.
+-   Updated all documentation.
+
+---
+
+## Session 5: Auth Testing & Verification / 认证测试与验证
+
+**User**: Step by step, test login first. Also record all my choices.
+**User Choice**: Test auth flow before anything else.
+
+**AI**: Checked prereqs before testing:
+-   **Issue 1**: Missing `BETTER_AUTH_SECRET` and `NEXT_PUBLIC_APP_URL` in `.env`.
+-   **Fix**: Generated secret with `crypto.randomBytes(32)`, added both to `.env`.
+-   **Issue 2**: Missing shadcn `Button`, `Input`, `Label` components.
+-   **Fix**: Ran `npx shadcn@latest add button input label -y`.
+
+**AI**: Auth page loads correctly (verified via browser screenshot).
+
+**AI**: Attempted sign-up via browser → HTTP 500.
+-   **User Question**: Is the secret invalid because I generated it?
+-   **AI Answer**: No, a random hex string is correct for `BETTER_AUTH_SECRET`. Problem was dev server needed restart to load new env vars.
+-   **Fix**: Restarted dev server.
+
+**AI**: Sign-up now returns `USER_ALREADY_EXISTS` (user was actually created earlier during the 500 phase — the sign-up part worked but session creation failed).
+
+**AI**: Sign-in still returns 500.
+-   **Root Cause**: `Unknown argument 'token'` — Prisma `Session` model was missing `token` field.
+-   **Fix**: Added `token String @unique` to `Session` model.
+-   Ran `npx prisma generate && npx prisma db push`.
+-   Restarted dev server again.
+
+**AI**: Sign-in now returns HTTP 200 ✅
+-   Response: `{"token":"MBhmXsULuC6izWx4e6OXrbrP8LhqziWr","user":{"name":"Test User","email":"test@example.com"}}`
+
 ---
 *End of Transcript (Current)*

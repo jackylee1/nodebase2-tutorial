@@ -119,3 +119,22 @@ The `npx inngest-cli dev` command was cancelled before the server could start. A
 - Server started successfully on port 8288.
 - 运行 `npx inngest-cli@latest dev --no-discovery -u http://localhost:3000/api/inngest`。
 - 服务器在端口 8288 上成功启动。
+
+## Phase 5: Auth Testing / 认证测试
+
+### 1. Missing `BETTER_AUTH_SECRET` and `NEXT_PUBLIC_APP_URL`
+**Issue / 问题**: Auth endpoints returned 500 because env vars weren't set.
+**Solution / 解决方案**: Generated secret via `crypto.randomBytes(32).toString('hex')`, added both to `.env`, restarted dev server.
+
+### 2. Missing `token` field in Session model
+**Error / 错误**: `Unknown argument 'token'` when Better-Auth tried to create a session.
+**Cause / 原因**: `prisma/schema.prisma` `Session` model was missing the `token String @unique` field that Better-Auth requires for session tokens.
+**Solution / 解决方案**:
+- Added `token String @unique` to `Session` model.
+- Ran `npx prisma generate && npx prisma db push`.
+- Restarted dev server.
+**Result / 结果**: Sign-up and sign-in both return HTTP 200 with valid session tokens.
+
+### 3. Missing shadcn/ui Components
+**Issue / 问题**: `src/components/ui/button.tsx`, `input.tsx`, `label.tsx` didn't exist.
+**Solution / 解决方案**: `npx shadcn@latest add button input label -y`.
