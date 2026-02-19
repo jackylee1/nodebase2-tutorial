@@ -9,6 +9,8 @@ export const metadata: Metadata = {
   description: "A fullstack Next.js application tutorial",
 };
 
+import { TRPCReactProvider } from "@/trpc/provider";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -16,7 +18,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <TRPCReactProvider>{children}</TRPCReactProvider>
+      </body>
     </html>
   );
 }
