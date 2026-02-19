@@ -1,6 +1,5 @@
 import { initTRPC, TRPCError } from "@trpc/server";
 import { auth } from "@/lib/auth";
-import { fromNodeHeaders } from "better-auth/node";
 
 export const createTRPCContext = async (opts: { headers: Headers }) => {
     const session = await auth.api.getSession({

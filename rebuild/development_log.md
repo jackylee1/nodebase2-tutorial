@@ -84,3 +84,38 @@ Used `fromNodeHeaders` (which expects Node.js `http` headers) on a Web Standard 
 - Passed `headers` directly (or converted to plain object if needed).
 - 删除了 `fromNodeHeaders` 工具。
 - 直接传递 `headers`（如果需要，则转换为普通对象）。
+
+### 2. Missing tRPC Packages (500 Error on Main Page)
+**Error / 错误**:
+`Module not found: Can't resolve '@trpc/react-query'` — HTTP 500 on all pages.
+**Cause / 原因**:
+The `npm install @trpc/server @trpc/client @trpc/react-query @tanstack/react-query zod` command was cancelled during execution, so the packages were never added to `package.json` or `node_modules`.
+`npm install` 命令在执行过程中被取消，因此包从未添加到 `package.json` 或 `node_modules`。
+**Solution / 解决方案**:
+- Re-ran the install command successfully.
+- 成功重新运行了安装命令。
+
+### 3. Unused `fromNodeHeaders` import
+**Error / 错误**:
+`fromNodeHeaders` was still imported in `src/server/api/trpc.ts` but no longer used.
+**Cause / 原因**:
+The import was left behind after fixing Issue #1.
+修复问题 #1 后遗留了导入。
+**Solution / 解决方案**:
+- Removed the unused import line.
+- 删除了未使用的导入行。
+
+## Phase 4: Background Workflows (Inngest) / 后台工作流 (Inngest)
+
+### 1. Inngest Dev Server Not Starting
+**Issue / 问题**:
+Port 8288 was not accessible after installation.
+安装后端口 8288 无法访问。
+**Cause / 原因**:
+The `npx inngest-cli dev` command was cancelled before the server could start. Also needed `--no-discovery -u` flag to point to the correct URL.
+`npx inngest-cli dev` 命令在服务器启动前被取消。还需要 `--no-discovery -u` 标志指向正确的 URL。
+**Solution / 解决方案**:
+- Ran `npx inngest-cli@latest dev --no-discovery -u http://localhost:3000/api/inngest`.
+- Server started successfully on port 8288.
+- 运行 `npx inngest-cli@latest dev --no-discovery -u http://localhost:3000/api/inngest`。
+- 服务器在端口 8288 上成功启动。

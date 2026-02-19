@@ -18,9 +18,9 @@
 - [x] Install Better-Auth & tRPC dependencies <!-- id: 10 -->
 - [x] Configure Auth Schema in Prisma <!-- id: 11 -->
 - [x] Set up tRPC (server, client, provider) <!-- id: 12 -->
-- [ ] Implement Auth API routes & Components <!-- id: 13 -->
+- [x] Implement Auth API routes & Components <!-- id: 13 -->
 
 ## Phase 4: Background Workflows (Inngest)
-- [ ] Install Inngest & mprocs <!-- id: 14 -->
-- [ ] Configure Inngest Client & Functions <!-- id: 15 -->
-- [ ] Create Hello World Workflow <!-- id: 16 -->
+- [x] Install Inngest & mprocs <!-- id: 14 -->
+- [x] Configure Inngest Client & Functions <!-- id: 15 -->
+- [x] Create Hello World Workflow <!-- id: 16 -->

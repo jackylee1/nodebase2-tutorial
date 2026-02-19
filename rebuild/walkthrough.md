@@ -71,3 +71,48 @@ npx prisma generate
 # (Created src/lib/auth.ts, src/server/api/trpc.ts, etc.)
 # Manual file creation (see implementation plan)
 ```
+
+### Files Created / 创建的文件
+-   `src/lib/auth.ts` — Better-Auth config (Prisma adapter)
+-   `src/lib/auth-client.ts` — Client-side auth hook
+-   `src/app/api/auth/[...all]/route.ts` — Auth API route
+-   `src/server/api/trpc.ts` — tRPC context & procedures
+-   `src/server/api/root.ts` — Root router
+-   `src/server/api/routers/auth.ts` — Auth router
+-   `src/trpc/client.ts` — React tRPC client
+-   `src/trpc/provider.tsx` — TRPCReactProvider
+-   `src/app/api/trpc/[trpc]/route.ts` — tRPC API route
+-   `src/components/auth-components.tsx` — SignIn/SignUp/SignOut
+-   `src/app/auth-test/page.tsx` — Auth test page
+
+### Troubleshooting / 故障排除
+1. `fromNodeHeaders` type mismatch → removed, passed `headers` directly.
+2. **Missing tRPC packages (500 error)** → `npm install` was cancelled, re-ran.
+3. Unused import cleanup in `trpc.ts`.
+
+## Phase 4: Background Workflows (Inngest) / 后台工作流
+**Goal**: Integrate Inngest for event-driven background jobs.
+**目标**: 集成 Inngest 以支持事件驱动的后台作业。
+
+### Executed Commands / 执行的命令
+```bash
+# 1. Install Dependencies / 安装依赖
+npm install inngest
+
+# 2. Start Dev Server / 启动开发服务器
+npx inngest-cli@latest dev --no-discovery -u http://localhost:3000/api/inngest
+```
+
+### Files Created / 创建的文件
+-   `src/inngest/client.ts` — Inngest client (id: "nodebase2-rebuild")
+-   `src/inngest/functions/hello-world.ts` — Test function
+-   `src/inngest/functions/index.ts` — Function exports
+-   `src/app/api/inngest/route.ts` — Inngest serve endpoint
+
+### Troubleshooting / 故障排除
+1. Port 8288 inaccessible → `npx inngest-cli dev` was cancelled. Used `--no-discovery -u` flag.
+
+## Overall Status / 总体状态
+-   **Next.js**: ✅ `http://localhost:3000` (HTTP 200)
+-   **Inngest**: ✅ `http://localhost:8288`
+-   **Database**: ✅ Connected to Neon PostgreSQL
