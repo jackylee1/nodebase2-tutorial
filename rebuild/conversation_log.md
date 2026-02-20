@@ -200,5 +200,66 @@
 -   Created `src/app/dashboard/page.tsx` (Dashboard UI with auto-refresh).
 -   Updated `src/app/page.tsx` (added navigation links).
 
+**User**: "I want to follow the original project's 5 development phases. Code should match."
+**User Choice**: Align rebuild with original `nodebase2` directories.
+
+**AI**: Analyzed all 5 directories (`nodebase2`, `nodebase2 2`, `nodebase2 3`, `nodebase2 4`, `nodebase2 5`). Created alignment plan.
+**User**: "Confirmed. Change one by one, I'll confirm each."
+**User Choice**: Step-by-step execution with confirmation.
+
+### Step 1: Install Missing Dependencies
+**AI**:
+-   `npm install @trpc/tanstack-react-query server-only client-only react-hook-form @hookform/resolvers sonner`
+-   `npx shadcn@latest add card form sonner -y` → created `card.tsx`, `form.tsx`, `sonner.tsx`
+
+**User**: Confirmed Step 1. ("好")
+
+### Step 2: Rewrite tRPC to v11 API
+**AI**: Created/rewritten 10 files:
+-   `src/trpc/init.ts` [NEW] — `createTRPCContext`, `baseProcedure`, `protectedProcedure`, `createCallerFactory`
+-   `src/trpc/query-client.ts` [NEW] — shared `makeQueryClient()` with 30s stale time
+-   `src/trpc/client.tsx` [REWRITE] — `useTRPC` + `TRPCReactProvider` via `@trpc/tanstack-react-query`
+-   `src/trpc/server.tsx` [NEW] — `createTRPCOptionsProxy` + `caller`
+-   `src/trpc/routers/_app.ts` [NEW] — flat `appRouter` with `getUsers` protectedProcedure
+-   `src/app/api/trpc/[trpc]/route.ts` [REWRITE] — new import paths
+-   `src/lib/db.ts` [MODIFY] — changed to `export default prisma`
+-   `src/lib/auth.ts` [MODIFY] — default import prisma, added `autoSignIn: true`
+-   `src/lib/auth-client.ts` [MODIFY] — `createAuthClient()` no args
+-   `src/app/layout.tsx` [REWRITE] — Geist fonts, `TRPCReactProvider` from `@/trpc/client`, added `Toaster`
+-   **Deleted**: `src/server/` directory, `src/trpc/provider.tsx`
+
+**User**: Confirmed Step 2. ("好")
+
+### Step 3: Rewrite Auth Components & Routes
+**AI**: Created 7 files + 3 logo SVGs:
+-   `src/lib/auth-utils.ts` [NEW] — `requireAuth()` / `requireUnauth()` server utilities
+-   `src/features/auth/components/auth-layout.tsx` [NEW] — centered auth layout with logo
+-   `src/features/auth/components/login-form.tsx` [NEW] — react-hook-form + Card + zod + sonner
+-   `src/features/auth/components/register-form.tsx` [NEW] — with confirmPassword validation
+-   `src/app/(auth)/layout.tsx` [NEW] — wraps AuthLayout
+-   `src/app/(auth)/login/page.tsx` [NEW] — `requireUnauth()` + LoginForm
+-   `src/app/(auth)/signup/page.tsx` [NEW] — `requireUnauth()` + RegisterForm
+-   `public/logos/logo.svg`, `github.svg`, `google.svg` [NEW] — brand & OAuth logos
+
+**User**: Confirmed Step 3. ("好，记得文档要更新啊，我门的对话也要记录啊")
+**User Choice**: Approved Step 3. Reminded AI to keep all documentation and conversation logs updated.
+
+### Step 4: Update Home Page, Logout & Client Component
+**AI**: Created/rewritten 3 files:
+-   `src/app/logout.tsx` [NEW] — `LogoutButton` component: `authClient.signOut()` → redirect `/login`
+-   `src/app/client.tsx` [NEW] — client component with `useTRPC()` + `useSuspenseQuery`
+-   `src/app/page.tsx` [REWRITE] — protected server component: `requireAuth()` → `caller.getUsers()` → shows user data + LogoutButton. Includes original's commented-out code history.
+
+**User**: Confirmed Step 4. ("好")
+
+### Step 5: Update Prisma Schema & Inngest
+**AI**: Updated 4 files, deleted 4 directories/files:
+-   `prisma/schema.prisma` [REWRITE] — matches original: User/Session/Account IDs plain `@id` (Better-Auth manages), Account adds `idToken`/`scope`/`accessTokenExpiresAt`/`refreshTokenExpiresAt`, Workflow simplified to `{id, name}` only
+-   `src/inngest/client.tsx` [MODIFY] — changed id to `"nodebase"`
+-   `src/inngest/functions.ts` [REWRITE] — single file, `helloWorld` sleeps 3×5s then creates Workflow with name
+-   `src/app/api/inngest/route.ts` [MODIFY] — import `helloWorld` directly
+-   **Deleted**: `src/inngest/functions/` (old multi-file), `src/app/auth-test/`, `src/app/dashboard/`, `src/components/auth-components.tsx`
+-   Ran `npx prisma generate` + `npx prisma db push --force-reset`
+
 ---
 *End of Transcript (Current)*

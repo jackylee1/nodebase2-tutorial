@@ -138,3 +138,31 @@ The `npx inngest-cli dev` command was cancelled before the server could start. A
 ### 3. Missing shadcn/ui Components
 **Issue / 问题**: `src/components/ui/button.tsx`, `input.tsx`, `label.tsx` didn't exist.
 **Solution / 解决方案**: `npx shadcn@latest add button input label -y`.
+
+## Phase 5 (Alignment): Matching Original Project / 匹配原始项目
+
+### Step 1: Dependencies
+- Installed `@trpc/tanstack-react-query`, `server-only`, `client-only`, `react-hook-form`, `@hookform/resolvers`, `sonner`
+- Installed shadcn: `card`, `form`, `sonner`
+
+### Step 2: tRPC v11 Migration
+- Created `src/trpc/init.ts`, `query-client.ts`, `client.tsx`, `server.tsx`, `routers/_app.ts`
+- Updated API route, `db.ts` (default export), `layout.tsx` (Geist fonts + Toaster)
+- Deleted `src/server/`, `src/trpc/provider.tsx`
+
+### Step 3: Auth Components & Routes
+- Created `src/lib/auth-utils.ts` (`requireAuth`/`requireUnauth`)
+- Created `src/features/auth/components/` (login-form, register-form, auth-layout)
+- Created `src/app/(auth)/` route group (login, signup pages)
+- Added logo SVGs to `public/logos/`
+
+### Step 4: Home Page, Logout, Client Component
+- Created `src/app/logout.tsx`, `client.tsx`
+- Rewrote `page.tsx` to protected server component
+
+### Step 5: Prisma Schema & Inngest Alignment
+- Rewrote `prisma/schema.prisma` to match original (simpler Workflow `{id, name}`, enhanced Account fields, Better-Auth managed IDs)
+- Rewrote `src/inngest/functions.ts` to single file with `helloWorld`
+- Changed Inngest client id to `"nodebase"`
+- Deleted old files: `src/inngest/functions/`, `src/app/auth-test/`, `src/app/dashboard/`, `src/components/auth-components.tsx`
+- Ran `npx prisma db push --force-reset` (DB reset to match new schema)

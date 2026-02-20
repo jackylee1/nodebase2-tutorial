@@ -1,14 +1,14 @@
 import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
 import { type NextRequest } from "next/server";
-import { appRouter } from "@/server/api/root";
-import { createTRPCContext } from "@/server/api/trpc";
+import { appRouter } from "@/trpc/routers/_app";
+import { createTRPCContext } from "@/trpc/init";
 
 const handler = (req: NextRequest) =>
     fetchRequestHandler({
         endpoint: "/api/trpc",
         req,
         router: appRouter,
-        createContext: () => createTRPCContext({ headers: req.headers }),
+        createContext: () => createTRPCContext(),
         onError:
             process.env.NODE_ENV === "development"
                 ? ({ path, error }) => {

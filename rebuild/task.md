@@ -25,8 +25,10 @@
 - [x] Configure Inngest Client & Functions <!-- id: 15 -->
 - [x] Create Hello World Workflow <!-- id: 16 -->
 
-## Phase 5: Workflow UI & Full Integration
-- [x] Create workflow tRPC router (CRUD) <!-- id: 17 -->
-- [x] Create Dashboard page (list workflows) <!-- id: 18 -->
-- [x] Create workflow trigger (Inngest integration) <!-- id: 19 -->
-- [ ] Verify end-to-end flow <!-- id: 20 -->
+## Phase 5: Align with Original Project
+- [x] Step 1: Install missing dependencies <!-- id: 17 -->
+- [x] Step 2: Rewrite tRPC to v11 API (init.ts, client.tsx, server.tsx, query-client.ts, routers/_app.ts) <!-- id: 18 -->
+- [x] Step 3: Rewrite Auth (auth-utils, login-form, register-form, auth-layout, routes) <!-- id: 19 -->
+- [x] Step 4: Update home page, layout, logout <!-- id: 20 -->
+- [x] Step 5: Update Prisma schema & Inngest to match original <!-- id: 21 -->
+- [ ] Step 6: Verify end-to-end flow <!-- id: 22 -->
