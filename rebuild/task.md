@@ -31,4 +31,4 @@
 - [x] Step 3: Rewrite Auth (auth-utils, login-form, register-form, auth-layout, routes) <!-- id: 19 -->
 - [x] Step 4: Update home page, layout, logout <!-- id: 20 -->
 - [x] Step 5: Update Prisma schema & Inngest to match original <!-- id: 21 -->
-- [ ] Step 6: Verify end-to-end flow <!-- id: 22 -->
+- [x] Step 6: Verify end-to-end flow <!-- id: 22 -->

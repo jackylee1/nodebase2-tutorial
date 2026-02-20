@@ -261,5 +261,36 @@
 -   **Deleted**: `src/inngest/functions/` (old multi-file), `src/app/auth-test/`, `src/app/dashboard/`, `src/components/auth-components.tsx`
 -   Ran `npx prisma generate` + `npx prisma db push --force-reset`
 
+**User**: Confirmed Step 5. ("嗯")
+
+### Step 6: End-to-End Verification
+**AI**: Restarted dev server. Verification results:
+-   `/login` → HTTP 200 ✅
+-   `/signup` → HTTP 200 ✅
+-   Sign-up API → HTTP 200, returns token + user ✅
+-   Sign-in API → HTTP 200, returns token + user ✅
+-   Home page `/` → 307 redirect to `/login` (requireAuth works) ✅
+
+**Result**: All 5 alignment steps complete. Rebuild now matches original project's code structure.
+
+**User**: "可以，继续"
+
+### Cleanup & Final Comparison
+**AI**:
+-   Checked git branches: current is `09-从头根据antonio项目跑一遍` (final rebuild following Antonio's project)
+-   Deleted duplicate files: `src/inngest/client.ts`, `src/trpc/client.ts` (kept `.tsx` versions)
+-   Compared rebuild (28 non-UI files) with original (111 files including ~70 shadcn UI components)
+-   **Result**: Core application files fully match original. Only difference is shadcn UI component count (we have 6, original has ~70 — can be installed on demand).
+
+**User**: "首页不是会有个createworkflow按钮吗"
+**User**: "你查一下，应该是有的"
+
+### Step 7: Add Create Workflow Feature
+**AI**: Found the feature in `nodebase2 3` (最终阶段), NOT in `nodebase2-tutorial` current branch.
+The page becomes a **client component** (`"use client"`) with workflow list + create button.
+Updated 2 files:
+-   `src/trpc/routers/_app.ts` [REWRITE] — replaced `getUsers` with `getWorkflows` (all workflows) + `createWorkflow` mutation (sends Inngest `test/hello.world` event)
+-   `src/app/page.tsx` [REWRITE] — client component: `useQuery(getWorkflows)` + `useMutation(createWorkflow)` button + `toast.success("Job queued")` + LogoutButton
+
 ---
 *End of Transcript (Current)*

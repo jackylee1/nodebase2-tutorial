@@ -166,3 +166,7 @@ The `npx inngest-cli dev` command was cancelled before the server could start. A
 - Changed Inngest client id to `"nodebase"`
 - Deleted old files: `src/inngest/functions/`, `src/app/auth-test/`, `src/app/dashboard/`, `src/components/auth-components.tsx`
 - Ran `npx prisma db push --force-reset` (DB reset to match new schema)
+
+### Step 7: Create Workflow Feature (from nodebase2 3)
+- Rewrote `src/trpc/routers/_app.ts`: `getWorkflows` query + `createWorkflow` mutation (Inngest event)
+- Rewrote `src/app/page.tsx`: client component with workflow list + create button + toast
