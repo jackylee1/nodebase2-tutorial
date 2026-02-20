@@ -24,3 +24,9 @@
 - [x] Install Inngest & mprocs <!-- id: 14 -->
 - [x] Configure Inngest Client & Functions <!-- id: 15 -->
 - [x] Create Hello World Workflow <!-- id: 16 -->
+
+## Phase 5: Workflow UI & Full Integration
+- [x] Create workflow tRPC router (CRUD) <!-- id: 17 -->
+- [x] Create Dashboard page (list workflows) <!-- id: 18 -->
+- [x] Create workflow trigger (Inngest integration) <!-- id: 19 -->
+- [ ] Verify end-to-end flow <!-- id: 20 -->

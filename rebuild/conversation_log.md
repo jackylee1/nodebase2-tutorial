@@ -177,5 +177,28 @@
 **AI**: Sign-in now returns HTTP 200 ✅
 -   Response: `{"token":"MBhmXsULuC6izWx4e6OXrbrP8LhqziWr","user":{"name":"Test User","email":"test@example.com"}}`
 
+**User**: "I'll verify it myself."
+**User Choice**: Self-verification of auth flow.
+
+**User**: "It works. Continue to next step."
+**User Choice**: Proceed to Phase 5.
+
+---
+
+## Session 6: Phase 5 Planning / 第 5 阶段规划
+
+**AI**: Planning Phase 5 — Workflow UI & Integration.
+
+**User**: Confirmed ("确认").
+**User Choice**: Approved Phase 5 implementation plan.
+
+**AI**: Implementing Phase 5:
+-   Created `src/server/api/routers/workflow.ts` (tRPC CRUD: list, getById, create).
+-   Created `src/inngest/functions/process-workflow.ts` (processes workflow, updates status to COMPLETED).
+-   Updated `src/inngest/functions/index.ts` (exports new function).
+-   Updated `src/server/api/root.ts` (added workflow router).
+-   Created `src/app/dashboard/page.tsx` (Dashboard UI with auto-refresh).
+-   Updated `src/app/page.tsx` (added navigation links).
+
 ---
 *End of Transcript (Current)*
